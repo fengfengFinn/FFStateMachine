@@ -10,6 +10,8 @@ public:
   ~ACCStateMachine() = default;
 
   void Init() override;
+
+  int speed = 15;
 };
 
 } // namespace function_management

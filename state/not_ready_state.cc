@@ -29,7 +29,8 @@ void ACCNotReadyState::Entry() {
 };
 
 void ACCNotReadyState::During() {
-  std::cout << "Not Ready Exec: " << time_ << std::endl;
+  std::cout << "Not Ready Exec: " << acc_state_machine_->speed
+            << ", time: " << time_ << std::endl;
   time_++;
 };
 
