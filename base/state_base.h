@@ -9,7 +9,7 @@
 namespace miauto {
 namespace function_management {
 
-enum ACCState { NOT_READY, NORMAL_ACTIVE, FAULT, HOLD };
+enum StateEunm { NOT_READY, NORMAL_ACTIVE, FAULT, HOLD };
 
 using EventBaseConstVectorRef = std::vector<EventBase> const &;
 

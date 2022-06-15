@@ -2,7 +2,7 @@
 namespace miauto {
 namespace function_management {
 
-enum ACCEventEnum {
+enum EventEnum {
   NULL_EVENT,
   BRAKE_EVENT,
   ERROR_EVENT,

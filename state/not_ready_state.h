@@ -1,20 +1,20 @@
 #pragma once
-#include "../acc_state_machine.h"
+#include "../ff_state_machine.h"
 
 namespace miauto {
 namespace function_management {
 
-class ACCNotReadyState : public StateBase<ACCState> {
+class NotReadyState : public StateBase<StateEunm> {
 private:
   int time_ = -1;
 
 public:
-  ACCNotReadyState(ACCStateMachine *state_machine, ACCState state_enum)
+  NotReadyState(FFStateBase *state_machine, StateEunm state_enum)
       : StateBase(state_machine, state_enum) {
     InitPriorityLinks();
   };
 
-  ~ACCNotReadyState() = default;
+  ~NotReadyState() = default;
 
   virtual void InitPriorityLinks() override;
 
@@ -24,8 +24,8 @@ public:
 
   virtual void Exit() override;
 
-  ACCStateMachine *acc_state_machine() {
-    return dynamic_cast<ACCStateMachine *>(state_machine());
+  FFStateBase *ff_state_machine() {
+    return dynamic_cast<FFStateBase *>(state_machine());
   }
 
   virtual void CallBack(EventBase const &event){};

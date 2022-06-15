@@ -1,20 +1,20 @@
 #pragma once
-#include "../acc_state_machine.h"
+#include "../ff_state_machine.h"
 #include "active_domain_state.h"
 namespace miauto {
 namespace function_management {
 
-class ACCHoldState : public ActiveDomainState {
+class HoldState : public ActiveDomainState {
 private:
   int time_ = -2;
 
 public:
-  ACCHoldState(ACCStateMachine *state_machine, ACCState state_enum)
+  HoldState(FFStateBase *state_machine, StateEunm state_enum)
       : ActiveDomainState(state_machine, state_enum) {
     InitPriorityLinks();
   };
 
-  ~ACCHoldState() = default;
+  ~HoldState() = default;
 
   virtual void InitPriorityLinks() override;
 

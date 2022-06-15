@@ -3,11 +3,11 @@
 namespace miauto {
 namespace function_management {
 
-class ACCStateMachine : public StateMachineBase<ACCState> {
+class FFStateBase : public StateMachineBase<StateEunm> {
 public:
-  ACCStateMachine() = default;
+  FFStateBase() = default;
 
-  ~ACCStateMachine() = default;
+  ~FFStateBase() = default;
 
   void Init() override;
 

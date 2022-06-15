@@ -1,35 +1,35 @@
 #include "fault_state.h"
-#include "../event/acc_event_enum.h"
+#include "../event/event_enum.h"
 namespace miauto {
 namespace function_management {
 
-void ACCFaultState::InitPriorityLinks() {
+void FaultState::InitPriorityLinks() {
   std::function<bool(EventBaseConstVectorRef)> access_fault_to_notready =
-      std::bind(&ACCFaultState::AssessFaultToNotReady, this,
+      std::bind(&FaultState::AssessFaultToNotReady, this,
                 std::placeholders::_1);
 
-  AddPriorityLink(access_fault_to_notready, ACCState::NOT_READY);
+  AddPriorityLink(access_fault_to_notready, StateEunm::NOT_READY);
 };
 
-void ACCFaultState::Entry() {
+void FaultState::Entry() {
   time_ = 0;
   std::cout << "Fault Entry: " << time_ << std::endl;
 };
 
-void ACCFaultState::During() {
+void FaultState::During() {
   time_++;
   std::cout << "Fault Exec: " << time_ << std::endl;
 };
 
-void ACCFaultState::Exit() {
+void FaultState::Exit() {
   time_ = 0;
   std::cout << "Fault  Exit: " << time_ << std::endl;
 };
 
-bool ACCFaultState::AssessFaultToNotReady(EventBaseConstVectorRef events) {
+bool FaultState::AssessFaultToNotReady(EventBaseConstVectorRef events) {
   for (std::vector<EventBase>::const_iterator event = events.begin();
        event != events.end(); event++) {
-    if (ACCEventEnum(event->type_enum_id()) == ACCEventEnum::ERROR_EVENT) {
+    if (EventEnum(event->type_enum_id()) == EventEnum::ERROR_EVENT) {
       return false;
     }
   }
