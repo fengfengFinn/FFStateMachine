@@ -1,21 +1,20 @@
 #pragma once
 #include "../acc_state_machine.h"
-#include "../event/brake_event.h"
 #include "active_domain_state.h"
 namespace miauto {
 namespace function_management {
 
-class ACCFaultState : public ActiveDomainState {
+class ACCHoldState : public ActiveDomainState {
 private:
   int time_ = -2;
 
 public:
-  ACCFaultState(ACCStateMachine *state_machine, ACCState state_enum)
+  ACCHoldState(ACCStateMachine *state_machine, ACCState state_enum)
       : ActiveDomainState(state_machine, state_enum) {
     InitPriorityLinks();
   };
 
-  ~ACCFaultState() = default;
+  ~ACCHoldState() = default;
 
   virtual void InitPriorityLinks() override;
 
@@ -27,7 +26,7 @@ public:
 
   virtual void CallBack(EventBase const &event){};
 
-  bool AssessFaultToNotReady(EventBaseConstVectorRef events);
+  bool AssessHoldToNormalActive(EventBaseConstVectorRef events);
 };
 
 } // namespace function_management

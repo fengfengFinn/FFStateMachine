@@ -10,6 +10,7 @@ void ACCStateMachine::Init() {
   Factory::CreateACCState(this, ACCState::NOT_READY);
   Factory::CreateACCState(this, ACCState::NORMAL_ACTIVE);
   Factory::CreateACCState(this, ACCState::FAULT);
+  Factory::CreateACCState(this, ACCState::HOLD);
 
   SetInitState(ACCState::NOT_READY);
 }

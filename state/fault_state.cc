@@ -17,8 +17,8 @@ void ACCFaultState::Entry() {
 };
 
 void ACCFaultState::During() {
-  std::cout << "Fault Exec: " << time_ << std::endl;
   time_++;
+  std::cout << "Fault Exec: " << time_ << std::endl;
 };
 
 void ACCFaultState::Exit() {

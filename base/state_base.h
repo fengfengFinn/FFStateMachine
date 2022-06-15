@@ -4,16 +4,20 @@
 
 #include "event_base.h"
 #include "state_link_base.h"
+#include "state_machine_base.h"
+
 namespace miauto {
 namespace function_management {
 
-enum ACCState { NOT_READY, NORMAL_ACTIVE, FAULT };
+enum ACCState { NOT_READY, NORMAL_ACTIVE, FAULT, HOLD };
 
 using EventBaseConstVectorRef = std::vector<EventBase> const &;
 
-template <typename SM, typename TSE> class StateBase {
+template <typename TSE> class StateMachineBase;
+
+template <typename TSE> class StateBase {
 public:
-  StateBase(SM *state_machine, TSE state_enum)
+  StateBase(StateMachineBase<TSE> *state_machine, TSE state_enum)
       : state_machine_(state_machine), state_enum_(state_enum){};
 
   virtual ~StateBase() = default;
@@ -64,7 +68,7 @@ public:
 
   TSE GetStateEnum() { return state_enum_; }
 
-  SM *GetStateMachinePtr() { return state_machine_; }
+  StateMachineBase<TSE> *GetStateMachinePtr() { return state_machine_; }
 
   void AddPriorityLink(
       std::function<bool(EventBaseConstVectorRef)> condition_function,
@@ -95,8 +99,10 @@ public:
     return &priority_links_;
   }
 
+  StateMachineBase<TSE> *state_machine() { return state_machine_; }
+
 private:
-  SM *state_machine_;
+  StateMachineBase<TSE> *state_machine_;
   std::vector<StateLinkBase<TSE>> priority_links_;
   TSE state_enum_;
 };

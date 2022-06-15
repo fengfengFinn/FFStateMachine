@@ -19,8 +19,7 @@ public:
   virtual void Init() = 0;
 
   void SetInitState(TSE init_state_enum) {
-    typename std::unordered_map<
-        TSE, std::unique_ptr<StateBase<StateMachineBase<TSE>, TSE>>>::iterator
+    typename std::unordered_map<TSE, std::unique_ptr<StateBase<TSE>>>::iterator
         iter_map = state_map_.find(init_state_enum);
     if (iter_map != state_map_.end()) {
       cur_state_ptr_ = iter_map->second.get();
@@ -34,8 +33,7 @@ public:
   TSE GetCurStateEnum() { return cur_state_enum_; };
 
   void Transit(TSE target_state_enum) {
-    typename std::unordered_map<
-        TSE, std::unique_ptr<StateBase<StateMachineBase<TSE>, TSE>>>::iterator
+    typename std::unordered_map<TSE, std::unique_ptr<StateBase<TSE>>>::iterator
         iter_map = state_map_.find(target_state_enum);
 
     if (iter_map != state_map_.end()) {
@@ -48,8 +46,7 @@ public:
 
   template <typename F>
   void Transit(TSE target_state_enum, F &action_function) {
-    typename std::unordered_map<
-        TSE, std::unique_ptr<StateBase<StateMachineBase<TSE>, TSE>>>::iterator
+    typename std::unordered_map<TSE, std::unique_ptr<StateBase<TSE>>>::iterator
         iter_map = state_map_.find(target_state_enum);
 
     if (iter_map != state_map_.end()) {
@@ -69,9 +66,7 @@ public:
     }
   }
 
-  void
-  AddState(TSE state_enum,
-           std::unique_ptr<StateBase<StateMachineBase<TSE>, TSE>> state_ptr) {
+  void AddState(TSE state_enum, std::unique_ptr<StateBase<TSE>> state_ptr) {
     state_map_[state_enum] = std::move(state_ptr);
   }
 
@@ -86,11 +81,9 @@ public:
   }
 
 private:
-  typename std::unordered_map<
-      TSE, std::unique_ptr<StateBase<StateMachineBase<TSE>, TSE>>>
-      state_map_;
+  typename std::unordered_map<TSE, std::unique_ptr<StateBase<TSE>>> state_map_;
 
-  StateBase<StateMachineBase<TSE>, TSE> *cur_state_ptr_;
+  StateBase<TSE> *cur_state_ptr_;
 
   TSE cur_state_enum_;
 };

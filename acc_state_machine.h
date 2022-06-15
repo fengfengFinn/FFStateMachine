@@ -11,7 +11,7 @@ public:
 
   void Init() override;
 
-  int speed = 15;
+  std::string state_machine_data = "[data in state machine]";
 };
 
 } // namespace function_management

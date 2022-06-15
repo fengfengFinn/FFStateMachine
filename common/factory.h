@@ -1,8 +1,9 @@
 #pragma once
-#include "../base/state_base.h"
-#include "../base/state_machine_base.h"
+#include "../acc_state_machine.h"
 #include "../state/fault_state.cc"
 #include "../state/fault_state.h"
+#include "../state/hold_state.cc"
+#include "../state/hold_state.h"
 #include "../state/normal_active_state.cc"
 #include "../state/normal_active_state.h"
 #include "../state/not_ready_state.cc"
@@ -14,9 +15,9 @@ namespace miauto {
 namespace function_management {
 class Factory {
 public:
-  static void CreateACCState(StateMachineBase<ACCState> *state_machine,
+  static void CreateACCState(ACCStateMachine *state_machine,
                              ACCState state_enum) {
-    std::unique_ptr<StateBase<StateMachineBase<ACCState>, ACCState>> res_state;
+    std::unique_ptr<StateBase<ACCState>> res_state;
     switch (state_enum) {
     case ACCState::NOT_READY:
       res_state = std::make_unique<ACCNotReadyState>(state_machine,
@@ -29,6 +30,9 @@ public:
     case ACCState::FAULT:
       res_state =
           std::make_unique<ACCFaultState>(state_machine, ACCState::FAULT);
+      break;
+    case ACCState::HOLD:
+      res_state = std::make_unique<ACCHoldState>(state_machine, ACCState::HOLD);
       break;
 
     default:
