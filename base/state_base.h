@@ -1,6 +1,4 @@
 #pragma once
-#include <functional>
-#include <utility>
 
 #include "event_base.h"
 #include "state_link_base.h"
